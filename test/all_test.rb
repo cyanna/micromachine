@@ -86,9 +86,9 @@ class MicroMachineTest < Test::Unit::TestCase
       @machine.trigger(:confirm)
       assert_equal "Confirmed", @state
       assert_equal "Confirmed", @current
-      assert_equal :pending, @event[:from]
-      assert_equal :confirmed, @event[:to]
-      assert_equal :confirm, @event[:event]
+      assert_equal :pending, @event.from
+      assert_equal :confirmed, @event.to
+      assert_equal :confirm, @event.event
       @machine.trigger(:reset)
 
       @machine.trigger(:reset)
@@ -98,9 +98,9 @@ class MicroMachineTest < Test::Unit::TestCase
       @machine.trigger(:ignore)
       assert_equal "Ignored", @state
       assert_equal "Ignored", @current
-      assert_equal :pending, @event[:from]
-      assert_equal :ignored, @event[:to]
-      assert_equal :ignore, @event[:event]
+      assert_equal :pending, @event.from
+      assert_equal :ignored, @event.to
+      assert_equal :ignore, @event.event
 
     end
   end

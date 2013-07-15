@@ -1,5 +1,6 @@
 class MicroMachine
   InvalidEvent = Class.new(NoMethodError)
+  Transition = Struct.new(:event, :from, :to)
 
   attr :transitions_for
   attr :state
@@ -22,13 +23,9 @@ class MicroMachine
     if trigger?(event)
       from = @state
       @state = transitions_for[event][@state]
-      event_data = {
-        event: event,
-        from: from,
-        to: @state
-      }
+      transition = Transition.new(event, from, @state)
       callbacks = @callbacks[@state] + @callbacks[:any]
-      callbacks.each { |callback| callback.call(event_data) }
+      callbacks.each { |callback| callback.call(transition) }
       true
     else
       false
